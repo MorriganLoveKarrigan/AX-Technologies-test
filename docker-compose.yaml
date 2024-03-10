@@ -1,0 +1,16 @@
+version: "3.7"
+
+services:
+  nuxt-app:
+    build: .
+    container_name: nuxt-test
+    restart: always
+    ports:
+      - "4000:4000"
+    command: ["npm", "run", "dev"]
+    networks:
+      - nuxt-network
+
+networks:
+  nuxt-network:
+    driver: bridge

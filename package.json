@@ -8,7 +8,9 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "lint": "eslint --ext .ts,.vue --ignore-path .gitignore --max-warnings 0 src"
+    "lint": "eslint --ext .ts,.vue --ignore-path .gitignore --max-warnings 0 .",
+    "lint:fix": "eslint --ext .ts,.vue --ignore-path .gitignore --max-warnings 0 . --fix",
+    "check:types": "vue-tsc --noEmit && vite build"
   },
   "dependencies": {
     "nuxt": "^3.10.3",
@@ -19,6 +21,7 @@
     "@nuxt/eslint-config": "^0.2.0",
     "@typescript-eslint/parser": "^6.21.0",
     "prettier": "^3.2.5",
-    "typescript-eslint": "^7.1.1"
+    "typescript-eslint": "^7.1.1",
+    "vue-tsc": "^2.0.6"
   }
 }

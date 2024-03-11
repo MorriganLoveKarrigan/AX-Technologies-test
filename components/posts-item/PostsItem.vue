@@ -1,8 +1,11 @@
 <template>
   <div class="post-item">
+    <div v-if="isShowPage" class="post-item__go-back">
+      <button @click="handleGoBack">{{ '<' }} Вернуться</button>
+    </div>
     <h3>{{ post.title }}</h3>
     <p>{{ post.body }}</p>
-    <button v-if="!$route.params.id" @click="handleReadMore">read more</button>
+    <button v-if="!isShowPage" @click="handleReadMore">read more</button>
   </div>
 </template>
 
@@ -12,8 +15,13 @@
   const $router = useRouter();
   const $route = useRoute();
   const props = defineProps<PostItemProps>();
+
+  const isShowPage = computed(() => $route.params.id);
   const handleReadMore = () => {
     $router.push({ name: 'post-id', params: { id: String(props.post.id) } });
+  };
+  const handleGoBack = () => {
+    $router.push({ name: 'index' });
   };
 </script>
 
@@ -38,6 +46,12 @@
     line-height: 36px;
     color: #303133;
     font-weight: 500;
+  }
+
+  .post-item__go-back {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
   }
 
   .post-item button {

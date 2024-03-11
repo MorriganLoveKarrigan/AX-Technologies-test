@@ -2,8 +2,8 @@
   <label>
     <span class="title">{{ label }}</span>
     <select v-model="selectedValue" @change="changeHandler">
-      <option v-for="item in processedItems" :value="item.value || item" :key="item.value || item">
-        {{ item.title || item }}
+      <option v-for="item in processedItems" :value="item.value" :key="item.value">
+        {{ item.title }}
       </option>
     </select>
   </label>

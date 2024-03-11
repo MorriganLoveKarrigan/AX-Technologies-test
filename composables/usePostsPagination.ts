@@ -10,8 +10,8 @@ export const usePostsPagination = () => {
     q: ($route.query.q as string) || '',
     sort: ($route.query.sort as string) || '',
   });
-  const postsAmount = 100;
-  const pagesAmount = computed(() => Math.ceil(postsAmount / +query.value._limit));
+  const postsAmount = ref(0);
+  const pagesAmount = computed(() => Math.ceil(postsAmount.value / +query.value._limit));
   const currentPage = ref('1');
 
   const setQuery = (newQuery: Query): void => {
@@ -19,6 +19,9 @@ export const usePostsPagination = () => {
     updatePageQuery();
   };
 
+  const setTotalAmount = (amount: string): void => {
+    postsAmount.value = +amount;
+  };
   const updatePageQuery = (): void => {
     void $router.replace({ query: query.value });
   };
@@ -28,5 +31,6 @@ export const usePostsPagination = () => {
     pagesAmount,
     query,
     setQuery,
+    setTotalAmount,
   };
 };

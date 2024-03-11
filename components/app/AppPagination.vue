@@ -27,8 +27,6 @@
 </template>
 
 <script setup lang="ts">
-  import router from '#app/plugins/router';
-
   const $route = useRoute();
 
   const props = defineProps<{
@@ -37,10 +35,10 @@
     disabled?: boolean;
   }>();
 
-  const limitBy = ref($route.query._limit || '10');
+  const limitBy = ref(($route.query._limit as string) || '10');
 
   const emit = defineEmits<{
-    (e: 'pageChange', data: { page: string | number }): void;
+    (e: 'pageChange', data: { page: number }): void;
     (e: 'perPageChange', data: { perPage: string }): void;
   }>();
 

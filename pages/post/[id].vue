@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="post-page">
     <div v-if="post && !loading.post">
       <PostsItem :post="post" />
-      <div ref="commentsContainer" class="comments-container">
+      <div ref="commentsContainer">
         <div v-if="comments && !loading.comments">
           <CommentsList :comments="slicedComments" :loading="loading.comments" />
         </div>
@@ -37,13 +37,13 @@
 
   const fetchPost = async () => {
     loading.value.post = true;
-    post.value = await getPostById(currentPostId.value);
+    post.value = await getPostById(currentPostId.value).then(response => response!.data || null);
     loading.value.post = false;
   };
 
   const fetchComments = async () => {
     loading.value.comments = true;
-    comments.value = await getPostsComments(currentPostId.value);
+    comments.value = await getPostsComments(currentPostId.value).then(response => response!.data || null);
     loading.value.comments = false;
   };
 
@@ -74,3 +74,8 @@
     { immediate: true }
   );
 </script>
+<style lang="css">
+  .post-page {
+    min-width: 100%;
+  }
+</style>

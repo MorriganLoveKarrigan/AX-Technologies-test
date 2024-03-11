@@ -15,7 +15,7 @@
 
   const $route = useRoute();
 
-  const filterBy = ref($route.query.sort || 'title');
+  const filterBy = ref(($route.query.sort as string) || 'title');
   const searchValue = ref('');
 
   const emit = defineEmits<{

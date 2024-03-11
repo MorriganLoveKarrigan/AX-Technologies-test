@@ -13,3 +13,7 @@
 
   defineProps<CommentsListProps>();
 </script>
+<style lang="css">
+  .comments-list {
+  }
+</style>

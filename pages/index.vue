@@ -5,6 +5,7 @@
       <PostsList :posts="sortedPosts" v-if="posts" :loading="isLoading" />
     </div>
     <AppPagination
+      v-if="posts && !isLoading"
       :limit="query._limit"
       :pages-amount="pagesAmount"
       :disabled="isLoading"
@@ -23,11 +24,18 @@
 
   const posts = ref<PostEntity[] | null>(null);
   const isLoading = ref(false);
-  const { pagesAmount, query, setQuery } = usePostsPagination();
+  const { pagesAmount, query, setQuery, setTotalAmount } = usePostsPagination();
 
   const fetchData = async (): Promise<void> => {
     isLoading.value = true;
-    posts.value = await getPosts(query.value);
+    posts.value = await getPosts(query.value).then(response => {
+      if (response) {
+        if (response.headers) {
+          setTotalAmount(response.headers.totalCount!);
+        }
+        return response?.data;
+      } else return null;
+    });
     isLoading.value = false;
   };
 
